@@ -1,0 +1,38 @@
+//created on: Mar 27, 2017
+package thesis.app.rules;
+
+//list any import classes here.
+global List allQuestion; //this variable for store all question_IDs being selected, for checking duplicate
+
+rule "Environment setup"
+    //include attributes such as "salience" here...
+    salience 99999999
+    when        
+    then
+        allQuestion = new ArrayList();       
+        System.out.println("Environment setup successfull");
+        //System.out.println(allQuestion==null);
+end
+
+
+/*
+rule "Environment Output"
+	dialect 'java'
+	salience -999999999
+    when
+        qn: Questionaire(items: ItemList)
+    then
+    	System.out.println("Environment Output");
+		for(Item it : (ArrayList<Item>)items) {
+			System.out.println(it.toString());
+		}
+end 
+rule "rule1"
+when
+    s: String()
+then
+    System.out.println("In rule - " + drools.getRule().getName());
+    System.out.println("s = " + s);
+end
+
+*/

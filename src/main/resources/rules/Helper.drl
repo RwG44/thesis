@@ -1,0 +1,78 @@
+//created on: Mar 30, 2017
+package thesis.app.rules
+
+import thesis.app.entity.*;
+import java.util.ArrayList;
+import java.util.List; 
+import java.lang.reflect.Field;
+
+
+
+//This function for getting ID of object (Item, Question, Option)
+function int getIdField(Object Element) {			
+	Field field = Element.getClass().getDeclaredField("ID");
+	field.setAccessible(true);			
+	int value = (int)field.get(Element);
+	return value;
+}
+
+
+//This function for checking if an element exists in a list
+function boolean isElementExist(List list, int ID) {
+	for (Object element : list) {
+		if(getIdField(element) == ID) return true;
+	}
+	return false;
+}
+function boolean isQuestionExist(int ID, List allQuestion){
+	for (Object id : allQuestion) {
+		if((int)id == ID)  return true;
+	}
+	return false;
+}
+
+
+//This function for adding an element to a list
+function boolean addElementToList(List list, Object element) { //, List allQuestion) {	
+	
+	int ID = getIdField(element);
+	//System.out.println(element.getClass().toString());
+	
+	//check if the element is question, then check if it exist in allQuestion
+	/*
+	if(element.getClass().toString().contains("Question")) {
+		if(!isQuestionExist(ID, allQuestion) {
+			list.add(element);
+			allQuestion.add(ID);			
+			System.out.println("Added Question: " + ID);
+		} 
+	}
+	else {*/
+		//If element does not exist, add to list
+		if(!isElementExist(list, ID)) {	
+			list.add(element);
+			//System.out.println("Added Not Question: " + ID);		
+		}
+	//}
+	return true;
+}
+
+function boolean editElement(Object element, String field, Object value) { 	
+	System.out.println("Set field start");
+	Field mfield = element.getClass().getDeclaredField(field);
+	mfield.setAccessible(true);			
+	
+	mfield.set(element, value);
+	System.out.println("Set field done");
+	return true;
+}
+
+// this function for getting an element of a list by position index
+function Object getElement(List list, int index) {	
+	try {			
+		return list.get(index);
+	} catch (Exception e) {
+		throw e;
+	}
+}
+

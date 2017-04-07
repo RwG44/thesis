@@ -1,0 +1,20 @@
+// header (will be written out once)
+package thesis.app.rules;
+
+dialect "mvel"
+
+import java.util.ArrayList;
+import java.util.List; 
+import thesis.app.entity.*;
+
+
+rule "Rule #@{ID}"
+when
+  env: Factor(@{factor_cond})
+  qn: Questionaire(items: ItemList)
+  Item(@{item_cond}, questions: QuestionList) from items
+  Question(@{question_cond}, options: OptionList) from questions
+then
+  @{rule_cons}
+  System.out.println("Rule_#@{ID}"); 
+end

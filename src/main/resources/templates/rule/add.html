@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>A Rules-based Questionaire Design System - by MT</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="../static/css/site.css" th:href="@{/css/site.css}"
+	rel="stylesheet" media="screen" />
+</head>
+<body>
+	<div class="container">
+		<div th:fragment="header">
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="#" th:href="@{/}">Home</a>
+						<ul class="nav navbar-nav">
+							<li><a href="#" th:href="@{/rules/view}">Rules Manage</a></li>
+							<li><a href="#" th:href="@{/run}">Run RuleBase</a></li>
+							<li><a href="#" th:href="@{/survey/test}">Survey Test</a></li>
+						</ul>
+
+					</div>
+				</div>
+			</nav>
+		</div>
+	</div>
+	<div class="main" style="padding: 40px">
+		<div class="row">
+			<h1>Add new rule</h1>
+			<div class="col-md-6">
+				<h3>New Conditions</h3>
+				<form action="#" th:action="@{/rule/add?action=cond}"
+					th:object="${mCondition}" method="post" class="table">
+					<table border="1">
+						<tr>
+							<td>Object</td>
+							<td><input type="text" required="required"
+								th:field="*{object}" /></td>
+						</tr>
+						<tr>
+							<td>Operator</td>
+							<td><input type="text" required="required"
+								th:field="*{operator}" /></td>
+						</tr>
+						<tr>
+							<td>Value</td>
+							<td><input type="text" required="required"
+								th:field="*{value}" /></td>
+						</tr>
+						<tr>
+							<td><input type="submit" class="btn btn-default"
+								value="Submit" /></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div class="col-md-6">
+				<h3>New Consequences</h3>
+				<form action="#" th:action="@{/rule/add?action=cons}"
+					th:object="${mConsequence}" method="post" class="table">
+					<table border="1">
+						<tr>
+							<td>Object</td>
+							<td><input type="text" required="required"
+								th:field="*{object}" /></td>
+						</tr>
+						<tr>
+							<td>Operator</td>
+							<td><input type="text" required="required"
+								th:field="*{operator}" /></td>
+						</tr>
+						<tr>
+							<td>Value</td>
+							<td><input type="text" required="required"
+								th:field="*{value}" /></td>
+						</tr>
+						<tr>
+							<td><input type="submit" class="btn btn-default"
+								value="Submit" /></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="row">
+				<form action="/rule/add?action=save" method="post" class="table">
+					<input type="submit" class="btn btn-default" value="Save" style="float:right" />
+				</form>
+			</div>
+			<div class="col-md-6">
+				<h4>Conditions</h4>
+				<table class="table">
+					<tr>
+						<td>Object</td>
+						<td>Operator</td>
+						<td>Value</td>
+					</tr>
+					<th:block th:each="condition: ${session.mRule.getConditions()}">
+						<tr>
+							<td th:text="${condition.getObject()}"></td>
+							<td th:text="${condition.getOperator()}"></td>
+							<td th:text="${condition.getValue()}"></td>
+						</tr>
+					</th:block>
+				</table>
+			</div>
+			<div class="col-md-6">
+				<h4>Consequences</h4>
+				<table class="table">
+					<tr>
+						<td>Object</td>
+						<td>Operator</td>
+						<td>Value</td>
+					</tr>
+					<th:block th:each="consequence: ${session.mRule.getConsequences()}">
+						<tr>
+							<td th:text="${consequence.getObject()}"></td>
+							<td th:text="${consequence.getOperator()}"></td>
+							<td th:text="${consequence.getValue()}"></td>
+						</tr>
+					</th:block>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

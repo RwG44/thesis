@@ -1,0 +1,172 @@
+//created on: Mar 28, 2017
+package thesis.app.rules;
+dialect "mvel"
+//list any import classes here.
+
+import java.util.ArrayList;
+import java.util.List; 
+import thesis.app.entity.*;
+
+//declare any global variables here
+
+rule "Rule #1"
+	salience 3
+    when
+        env: Factor()
+        qn: Questionaire(items: ItemList)
+		//Item(questions: QuestionList) from items
+		//Question(options: OptionList) from questions
+    then
+		addElementToList(items, new Item(1,"Age",1, 1, new ArrayList()));
+		addElementToList(items, new Item(2,"Gender",1, 1, new ArrayList()));
+		System.out.println(drools.getRule().getName());
+end
+ 
+rule "Rule #2"
+	salience 3
+    when
+        env: Factor()
+        qn: Questionaire(items: ItemList)
+		//Item(questions: QuestionList) from items
+		//Question(options: OptionList) from questions        
+    then
+    	addElementToList(items, new Item(3,"Name",4, 1, new ArrayList()));
+    	System.out.println(drools.getRule().getName());
+end
+
+//Rule for collaboration betweens items ( if item #1 exist, add item #2)
+rule "Rule #3"
+	salience 3
+    when
+        env: Factor()
+        qn: Questionaire(items: ItemList)
+		//Item(ID == 1, questions: QuestionList) from items
+		//Question(options: OptionList) from questions        
+    then
+        addElementToList(items, new Item(4,"Edu", 2, 1, new ArrayList()));
+        System.out.println(drools.getRule().getName()); 
+end
+
+//Rule for adding question to the item having the given ID
+rule "Rule #4"
+	salience 2
+    when
+        env: Factor()
+        qn: Questionaire(items: ItemList)
+		Item(ID == 1, questions: QuestionList) from items
+		//Question(options: OptionList) from questions
+    then
+        addElementToList(questions, new Question(1,"Bạn ban nhiêu tuổi",1 , 1, new ArrayList()));
+        System.out.println(drools.getRule().getName());
+end
+
+rule "Rule #5"
+	salience 2
+    when
+        env: Factor()
+        qn: Questionaire(items: ItemList)
+		Item(ID == 2, questions: QuestionList) from items
+		//Question(options: OptionList) from questions
+    then
+        addElementToList(questions, new Question(2,"Giới tính của bạn",1 , 1, new ArrayList()));
+        System.out.println(drools.getRule().getName()); 
+end
+
+rule "Rule #6"
+	salience 2
+    when
+        env: Factor()
+        qn: Questionaire(items: ItemList)
+		Item(ID == 3, questions: QuestionList) from items
+		//Question(options: OptionList) from questions
+    then
+        addElementToList(questions, new Question(3,"Tên của bạn là gì",2 , 1, new ArrayList()));
+        System.out.println(drools.getRule().getName());
+end
+
+rule "Rule #7"
+	salience 2
+    when
+        env: Factor()
+        qn: Questionaire(items: ItemList)
+		Item(ID == 4, questions: QuestionList) from items
+		//Question(options: OptionList) from questions
+    then
+        addElementToList(questions, new Question(4,"Trình độ học vấn của bạn",1 , 1, new ArrayList()));
+        System.out.println(drools.getRule().getName()); 
+end
+
+//Rule for adding options to the question having the given ID
+rule "Rule #8"
+	salience 1
+    when
+        qn: Questionaire(items: ItemList)
+        Item(questions: QuestionList) from items
+        Question(ID == 1, options: OptionList) from questions
+    then
+        addElementToList(options, new Option(1,"Dưới 18", 1));
+        addElementToList(options, new Option(2,"Từ 18 đến 35", 1));
+        addElementToList(options, new Option(3,"Trên 35", 1));
+        System.out.println(drools.getRule().getName()); 
+end
+
+rule "Rule #9"
+	salience 1
+    when
+        qn: Questionaire(items: ItemList)
+        Item(questions: QuestionList) from items
+        Question(ID == 2, options: OptionList) from questions
+    then
+        addElementToList(options, new Option(4,"Nam", 1));
+        addElementToList(options, new Option(5,"Nữ", 1));
+        addElementToList(options, new Option(6,"Trên 35", 1));
+        System.out.println(drools.getRule().getName()); 
+end
+
+rule "Rule #10"
+	salience 1
+    when
+        qn: Questionaire(items: ItemList)
+        Item(questions: QuestionList) from items
+        Question(ID == 4, options: OptionList) from questions
+    then
+        addElementToList(options, new Option(7,"Chưa THPT", 1));
+        addElementToList(options, new Option(8,"Đã THPT", 1));
+        addElementToList(options, new Option(9,"Đã ĐH", 1));
+        System.out.println(drools.getRule().getName());
+end
+
+rule "Rule #11"
+	salience 1
+    when
+        qn: Questionaire(items: ItemList)
+        Item(questions: QuestionList) from items
+        Question(ID == 1, options: OptionList) from questions
+    then
+        addElementToList(options, new Option(10,"Từ 35 - 40", 1));
+        addElementToList(options, new Option(11,"40 - 60", 1));
+        addElementToList(options, new Option(12,"Trên 60", 1));
+        System.out.println(drools.getRule().getName());
+end
+
+rule "Rule #12"
+	salience 2
+    when
+        qn: Questionaire(items: ItemList)
+        Item(ID == 2, questions: QuestionList) from items
+    then
+    	addElementToList(questions, new Question(1,"Bạn ban nhiêu tuổi",1 , 1, new ArrayList()));
+        System.out.println(drools.getRule().getName());
+end
+
+rule "Rule #13"
+	salience 1
+    when
+        qn: Questionaire(items: ItemList)
+        Item(questions: QuestionList) from items
+        q: Question(ID == 3, options: OptionList) from questions
+    then
+        editElement(q, "Qtype", 9);
+        System.out.println(drools.getRule().getName()); 
+end
+

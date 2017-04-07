@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title> A Rules-based Questionaire Design System -  by MT</title>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link href="/static/css/site.css" rel="stylesheet" media="screen" />
+</head>
+<body>
+	<div class="container">
+    <div class="jumbotron">
+        <img src="http://mark.bis.ueh.edu.vn/Content/img/link_bis.png" width="1000"/>
+        <h1>Hello</h1>
+ 
+        <h2>Click now!!!</h2>
+        <input type="button" value="Run Test"/>
+        <input type="button" value="Add Rule"/>
+        <input type="button" value="View Rule"/>
+        <ul class="nav navbar-nav">
+							<li><a href="#" th:href="@{/rule/view}">Rules Manage</a></li>
+							<li><a href="#" th:href="@{/run}">Run RuleBase</a></li>
+							<li><a href="#" th:href="@{/survey/test}">Survey Test</a></li>
+						</ul>
+    </div>
+</div>
+</body>
+</html>

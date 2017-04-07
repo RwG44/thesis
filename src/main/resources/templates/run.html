@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>A Rules-based Questionaire Design System -  by MT</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="../static/css/site.css" th:href="@{/css/site.css}"
+	rel="stylesheet" media="screen" />
+</head>
+<body>
+	<div class="container">
+		<div th:fragment="header">
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="#" th:href="@{/}">Home</a>
+						<ul class="nav navbar-nav">
+							<li><a href="#" th:href="@{/rules/view}">Rules Manage</a></li>
+							<li><a href="#" th:href="@{/run}">Run RuleBase</a></li>
+							<li><a href="#" th:href="@{/survey/test}">Survey Test</a></li>
+						</ul>
+
+					</div>
+				</div>
+			</nav>
+
+			<div class="jumbotron">
+				<div class="row text-center">
+					<div class="">
+						<h2>A Rules-based Questionaire Design System</h2>
+
+						<h3> by MT</h3>
+					</div>
+				</div>
+				<div class="row text-center"></div>
+			</div>
+		</div>
+	</div>
+	<div class="main" style="padding:40px">
+		<h1>Question list</h1>
+		<table class="table">			
+			<tr>
+				<th style="width:80px;">Question ID</th>
+				<th>Question</th>
+				<th>Item</th>
+				<th>Qtype </th>
+				<th>Options list</th>
+			</tr>
+			<th:block th:each="item: ${questionaire.getItemList()}">
+			<tr th:each="question: ${item.getQuestionList()}">
+				<td th:text="${question.getID()}"></td>
+				<td th:text="${question.getText()}"></td>
+				<td th:text="${item.getText() + ' (' + item.getID() + ')'}"></td>
+				<td th:text="${question.getQtype()}"></td>
+				<td><span th:each="option: ${question.optionList}">
+						<span th:text="${option.getText() + ' (' + option.getID() + ')' + '; '}" /> </span></td>
+			</tr>
+			</th:block>
+		</table>
+	</div>
+</body>
+</html>
